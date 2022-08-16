@@ -1,0 +1,15 @@
+<swiper class="swiper-block" previous-margin="70rpx" next-margin="70rpx" current="0" bindchange="swiperChange">
+    <block  wx:for="{{urls}}">
+        <swiper-item    class="swiper-item">
+            <image   mode="widthFix" src="{{urls[index].url}}" class="slide-image {{swiperIndex == index ? 'active' : ''}}"></image>
+        </swiper-item>
+    </block>
+</swiper>
+<view class="itemView">
+    <input class="input" auto-focus="true" name="userName" placeholder="输入链接" 
+    bindinput="input" value="{{type}}" />
+  </view>
+  <view class="anniu">
+    <button  bindtap="dianji" class="anniu2">清空</button>
+  </view>
+

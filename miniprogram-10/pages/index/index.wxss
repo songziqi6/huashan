@@ -1,0 +1,57 @@
+.swiper-block {
+  height: 900rpx;
+  width: 103%;
+  margin-top: 53rpx ;
+ 
+  
+}
+
+.swiper-item {
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: unset;
+  
+  
+}
+.slide-image {
+  height: 700rpx;
+  width: 587rpx;
+  margin: 17rpx 22rpx;
+  box-sizing: border-box;
+  z-index: 1;
+  border-radius: 15px;
+}
+.active {
+  transform: scale(1.07);
+  transition: all 0.2s ease-in 0s;
+  z-index: 20;
+  border-radius: 30px;
+  margin-right: 15px;
+}
+.itemView{
+  margin-top: 100rpx;
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+}
+.input{
+  width: 700rpx;
+  background-color:honeydew;
+  height: 100rpx;
+  border-radius: 20rpx;
+}
+.anniu{
+ margin-top: 50rpx;
+display: flex;
+justify-content: center;
+width: 100%rpx;
+height:100rpx;
+}
+.anniu2{
+  height:80% ;
+  background-color: khaki;
+}
