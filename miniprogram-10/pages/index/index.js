@@ -1,6 +1,8 @@
 // index.js
 let niupi;
 let biaodanzhi;
+let baocun;
+let niupi2=0;
 Page({
 
   /**
@@ -9,8 +11,12 @@ Page({
   data: {
     swiperIndex: 0,
     urls:0,
-    type:''
-   
+    type:'',
+    dianshu:0,
+   startX:0,
+   startY:0,
+   yidian1:"none",
+   yidian2:"none",
   },
  
 
@@ -20,6 +26,46 @@ Page({
      swiperIndex: e.detail.current,
    })
  },
+ ceshikaishi:function(e){
+  this.setData({
+    startX: e.changedTouches[0].clientX,
+    startY: e.changedTouches[0].clientY
+  })
+ },
+ angle(start, end) {
+  var _X = end.X - start.X,
+    _Y = end.Y - start.Y;
+  //返回角度 Math.atan()返回数字的反正切值
+  return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
+},
+ ceshijieshu:function(e){
+  let {startX,startY} = this.data;
+  let touchMoveX = e.changedTouches[0].clientX;
+  let touchMoveY = e.changedTouches[0].clientY;
+  let angle = this.angle({
+    X: startX,
+    Y: startY
+  }, {
+    X: touchMoveX,
+    Y: touchMoveY
+  });
+  if (Math.abs(angle) < 45 && touchMoveX < startX) {
+    if(this.data.dianshu!=this.data.urls.length-1){
+      this.data.dianshu++
+    }
+  };
+  if (Math.abs(angle) < 45 && touchMoveX > startX ) {
+    if(this.data.dianshu!=0){
+      this.data.dianshu-- 
+    }
+    
+    
+  }
+
+ },
+
+
+
  input:function(e){
  niupi=this.getURLFromString(e.detail.value)
      this.shujuqingqiu()
@@ -28,9 +74,76 @@ Page({
    this.setData({
     type:''
    })
-     
-   
  },
+
+ baocun:function(){
+  wx.downloadFile({
+    url: `${this.data.urls[this.data.dianshu].url}`,//图片的地址
+     success:function(res){
+       const tempFilePath = res.tempFilePath  //如果请求成功，则通过res中的tempFilePath 得到需要下载的图片地址
+       console.log(tempFilePath); //方便查看，这里打印路径，并且提示请求成功
+       wx.showToast({
+         title: '保存成功',
+         duration: 2000//持续的时间
+       });
+      
+       wx.saveImageToPhotosAlbum({
+         filePath: tempFilePath,  //设置下载图片的地址
+         success:function(){
+           console.log('成功');
+      ; 
+         }
+     })
+    
+   }
+   })
+   
+     },
+
+
+baocunquanbu(){
+  niupi2=0;
+  wx.downloadFile({
+    url: `${this.data.urls[niupi2++].url}`,//图片的地址
+     success:function(res){
+       const tempFilePath = res.tempFilePath  //如果请求成功，则通过res中的tempFilePath 得到需要下载的图片地址
+       console.log(tempFilePath); //方便查看，这里打印路径，并且提示请求成功
+       wx.showToast({
+         title: '保存成功',
+         duration: 2000//持续的时间
+       });
+      
+       wx.saveImageToPhotosAlbum({
+         filePath: tempFilePath,  //设置下载图片的地址
+         success:function(){
+           console.log('成功');
+      ; 
+         }
+     })
+    
+   }
+   })
+   
+     },
+
+
+     
+
+
+quanbu:function(){
+for(var i=0;i<=this.data.urls.length;i++){
+this.baocunquanbu()
+
+}
+
+
+
+
+},
+ 
+ 
+  
+
 
 
  
@@ -48,13 +161,35 @@ Page({
   },
   shujuqingqiu:function(huidiao){
     wx.request({
-      url: `http://api.yidianzhuye.com/jk/dsp/pp.php?url=${niupi}`,
+      url: `http://api.yidianzhuye.com/jk/dsp/?url=${niupi}`,
      success:(res)=>{
-   this.setData({
-     urls:res.data.results,
+      console.log(res.data.results);
+      
+if (res.data.results!=null)
+{
+
+  this.setData({
+    yidian2:'con',
+urls:res.data.results,
+
+  })
+  return 
+}
+if (res.data.data.url!=null)
+     {
+       
+      this.setData({
+        yidian1:'con',
+        urls:res.data.data.url
+          })
+       return
+    
+     }
 
 
-   })
+
+  
+ 
    
      }  
     })

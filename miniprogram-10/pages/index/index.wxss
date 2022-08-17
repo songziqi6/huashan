@@ -23,6 +23,7 @@
   box-sizing: border-box;
   z-index: 1;
   border-radius: 15px;
+
 }
 .active {
   transform: scale(1.07);
@@ -38,11 +39,29 @@
   display: flex;
   justify-content: center;
 }
+
+.video-container {
+  width: 100%;
+  flex-direction: row;
+}
+
+.result-video {
+  height: 1000rpx;
+  width: 100%;
+  border-radius: 15px;
+  margin-top: 40rpx;
+}
+
+
+
 .input{
   width: 700rpx;
-  background-color:honeydew;
+  background-color: darkgrey;
   height: 100rpx;
   border-radius: 20rpx;
+  border: 1px solid black;
+  background-color:transparent;
+
 }
 .anniu{
  margin-top: 50rpx;
@@ -54,4 +73,5 @@ height:100rpx;
 .anniu2{
   height:80% ;
   background-color: khaki;
+  border: 2px solid  black;
 }
